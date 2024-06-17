@@ -61,6 +61,13 @@ body {
   color: rgba(255, 255, 255, 0.6);
 }
 
+@media (max-width: 768px) {
+  .header_bottom {
+    flex-direction: column; /* Пример: изменение направления элементов для мобильных */
+    /* Добавьте другие необходимые стили */
+  }
+}
+
 .header_bottom {
   display: flex;
   justify-content: space-between;
