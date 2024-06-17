@@ -11,11 +11,14 @@ html {
 }
 
 body {
-  font-family: system, -apple-system, BlinkMacSystemFont, "Segoe UI", "Segoe WP",
-    Roboto, Ubuntu, Oxygen, Cantarell, "Fira Sans", "Helvetica Neue", Helvetica,
-    "Lucida Grande", "Droid Sans", Tahoma, "Microsoft Sans Serif", sans-serif;
   background-color: #f0f0f0;
   margin: 0;
+  font-size: 16px;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .header {
@@ -35,14 +38,13 @@ body {
       #8306f7 84.76%,
       #7c1af8 99.15%
     );
-  display: flex;
-  flex-direction: column;
   padding: 10px;
 }
 
 .header_top {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-bottom: 10px;
 }
 
@@ -53,7 +55,6 @@ body {
 }
 
 .item_panel {
-  position: relative;
   margin-right: 24px;
   font-size: 15px;
   list-style-type: none;
@@ -71,16 +72,12 @@ body {
 .logo_button {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  flex: 0 0 auto;
-  margin-right: 20px;
 }
 
 #logo {
+  max-width: 200px;
   height: auto;
-  width: 200px;
   border: 0;
-  -webkit-user-drag: none;
 }
 
 .burger {
@@ -88,21 +85,21 @@ body {
   justify-content: center;
   align-items: center;
   width: 50px;
-  height: 58px;
-  background: 0 0;
+  height: 50px;
+  background: transparent;
   border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 12px;
   margin-left: 20px;
-  transition: border-color 0.3s ease 0s, transform 0.3s ease;
-  transform: scale(0.8);
-  transform-origin: center;
+}
+
+.burger img {
+  max-width: 60%;
+  height: auto;
 }
 
 .search_bar {
   flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: 0 10px;
 }
 
 .search_bar input {
@@ -116,55 +113,37 @@ body {
 .nav_icons {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  flex: 0 0 auto;
   gap: 20px;
 }
 
+.nav_icons img {
+  max-width: 10%;
+  height: auto;
+}
 .add_container {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.add_1,
-.add_2 {
-  flex: 1;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden; /* Обрезание изображений, выходящих за пределы блока */
+.add_container .add_1,
+.add_container .add_2 {
+  flex: 1 1 45%;
+  max-width: 100%;
+}
+
+.add_container img {
+  width: 100%;
+  height: auto;
   border-radius: 12px;
 }
 
-.add_1 {
-  margin-top: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-.add_2 {
-  margin: 20px 10px;
-  margin-top: 5px;
-}
-
-.add_1 img,
-.add_2 img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 15px;
-}
-
-/* Я решил использовать не Flex а grid, так как это будет выглядеть куда аккуратнее */
 .shop {
   display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(300px, 1fr)
-  ); /* Grid с автоматической установкой колонок */
-  gap: 20px; /* Расстояние между карточками */
-  grid-auto-rows: min-content; /* Минимальная высота для строк, равная контенту */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
 }
 
 .shop_item {
@@ -172,7 +151,8 @@ body {
   border: 1px solid #ccc;
   padding: 20px;
   display: flex;
-  flex-direction: column; /* Размещение элементов в столбец внутри карточки */
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .shop_item:hover {
@@ -181,7 +161,8 @@ body {
 
 .shop_item img {
   width: 100%;
-  max-width: 100%; /* Чтобы изображение не выходило за пределы блока */
+  max-width: 100%;
+  height: auto;
   border-radius: 8px;
   margin-bottom: 10px;
 }
@@ -191,43 +172,33 @@ body {
   flex-direction: column;
 }
 
-.price_container {
-  display: flex;
-  align-items: baseline; /* Выравнивание элементов по базовой линии */
-}
-
 .product_price {
   font-weight: bold;
-  margin-right: 10px; /* Расстояние между ценой и старой ценой */
+  margin-right: 10px;
 }
 
 .old_price {
-  color: #999; /* Цвет для старой цены */
-  text-decoration: line-through; /* Зачёркивание для старой цены */
+  color: #999;
+  text-decoration: line-through;
 }
 
 .product_name {
-  overflow: hidden; /* Скрытие текста, который не помещается в блок */
-  text-overflow: ellipsis; /* Отображение многоточия для обрезанного текста */
-  display: -webkit-box; /* Определяем контейнер как flexbox контейнер */
-  -webkit-line-clamp: 2; /* Количество строк, которые нужно показать */
-  -webkit-box-orient: vertical; /* Поворот контейнера в вертикальное положение */
-  white-space: normal; /* Предотвращение переноса текста на новую строку */
-}
-
-.product_price {
-  font-size: 14px;
-  margin-bottom: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  white-space: normal;
 }
 
 .product_rating {
   font-size: 14px;
-  margin-bottom: 10px; /* Отступ после рейтинга */
+  margin-bottom: 10px;
 }
 
 .star {
-  font-size: 20px; /* Размер звезды */
-  color: #ffc107; /* Цвет золотой звезды */
+  font-size: 20px;
+  color: #ffc107;
 }
 
 .add_to_cart {
@@ -237,9 +208,8 @@ body {
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
-  display: inline-block;
   font-size: 14px;
-  margin-top: 10px; /* Отступ над кнопкой */
+  margin-top: 10px;
   cursor: pointer;
   border-radius: 4px;
 }
@@ -253,9 +223,9 @@ body {
       0deg,
       rgba(36, 36, 36, 0.05) 0,
       rgba(36, 36, 36, 0.05) 100%
-    ),
-    linear-gradient(
-      97deg,
+      ),
+      linear-gradient(
+      95deg,
       #ed3cca 0.49%,
       #df34d2 14.88%,
       #d02bd9 29.27%,
@@ -264,51 +234,45 @@ body {
       #9a10f0 70.89%,
       #8306f7 84.76%,
       #7c1af8 99.15%
-    );
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-}
-
-.footer_top {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.footer_panel {
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 10px;
-}
-
-.footer_item {
-  position: relative;
-  margin-right: 24px;
-  font-size: 15px;
-  list-style-type: none;
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.footer_bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 0;
-  margin-bottom: 10px;
-}
-
-.footer_logo {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex: 0 0 auto;
-  margin-right: 20px;
-}
-
-#footer_logo {
-  height: auto;
-  width: 200px;
-  border: 0;
-  -webkit-user-drag: none;
-}
+      );
+      padding: 10px;
+      margin-top: 20px;
+      }
+      
+      .footer_top {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 10px;
+      }
+      
+      .footer_panel {
+      display: flex;
+      justify-content: flex-start;
+      margin-left: 10px;
+      }
+      
+      .footer_item {
+      margin-right: 24px;
+      font-size: 15px;
+      list-style-type: none;
+      color: rgba(255, 255, 255, 0.6);
+      }
+      
+      .footer_bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      }
+      
+      .footer_logo {
+      display: flex;
+      align-items: center;
+      }
+      
+      #footer_logo {
+      max-width: 100px;
+      height: auto;
+      border: 0;
+      }
