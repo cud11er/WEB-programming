@@ -14,10 +14,7 @@ let productsItem = getElId('products');
 let resourses = getElId('resourses');
 let about = getElId('about');
 let personal = getElId('personal');
-let log_out = getElId('log_out');
-
-let content_contacts =  document.getElementById('')
-
+let log_in = getElId('log_in');
 
 let contentBlocks = {
   'content_main': getElId('content_main'),
@@ -27,8 +24,13 @@ let contentBlocks = {
   'content_resourses': getElId('content_resourses'),
   'content_about': getElId('content_about'),
   'content_personal': getElId('content_personal'),
-  'content_log_out': getElId('content_log_out')
+  'content_log_in': getElId('content_log_in')
 };
+
+// Инициализация загрузки RSS ленты при первой загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+  loadRSSFeed();
+});
 
 // Функция для скрытия всех контентных блоков, кроме указанного по его id
 function showContent(idToShow, title) {
@@ -43,7 +45,29 @@ function showContent(idToShow, title) {
   }
   homeTitle.innerHTML = `<h2>${title}</h2>`; // Устанавливаем заголовок
   menu.classList.remove('ShowMenu'); // Скрыть меню после нажатия
+
+  // Сохранение состояния в history
+  history.pushState({ id: idToShow, title: title }, title, `#${idToShow}`);
 }
+
+// Восстановление состояния при загрузке страницы
+window.addEventListener('popstate', function(event) {
+  if (event.state) {
+    showContent(event.state.id, event.state.title);
+  } else {
+    showContent('content_main', 'Шапка');
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (location.hash) {
+    let idToShow = location.hash.substring(1);
+    let title = document.querySelector(`a[href="#${idToShow}"]`).innerText;
+    showContent(idToShow, title);
+  } else {
+    showContent('content_main', 'Шапка');
+  }
+});
 
 // Закрытие меню при клике вне области
 document.addEventListener('click', function(event) {
@@ -73,7 +97,8 @@ headerProfile.addEventListener("click", function() {
 
 // Обработчики для разных разделов
 newsItem.addEventListener('click', function() {
-  showContent('content_news', 'Новости');
+  showContent('content_news', 'Новости (RSS-лента)');
+  loadRSSFeed();
 });
 
 contactsItem.addEventListener('click', function() {
@@ -95,3 +120,63 @@ about.addEventListener('click', function() {
 personal.addEventListener('click', function() {
   showContent('content_personal', 'Личный кабинет');
 });
+
+log_in.addEventListener('click', function(){
+  showContent('content_log_in', 'Вход');
+});
+
+// Функция для загрузки и отображения RSS ленты
+function loadRSSFeed() {
+  //let rssUrl = 'https://rss2json.com/api.json?rss_url=http://vse.karelia.ru/news/feed.xml';
+  let rssUrl = 'https://rss2json.com/api.json?rss_url=http://lenta.ru/l/r/EX/import.rss';
+
+  fetch(rssUrl)
+    .then(response => response.json())
+    .then(data => {
+      let container = document.getElementById('rss-feed');
+      container.innerHTML = ''; // Очистка предыдущего содержимого
+
+      data.items.forEach(function(entry) {
+        let article = document.createElement('div');
+        article.classList.add('rss-article');
+        console.log('entry', entry);
+
+        let title = document.createElement('h3');
+        title.innerHTML = entry.title;
+
+        // Создаем общий div для "Автор: " и имени автора с id
+        let authorInfo = document.createElement('div');
+        authorInfo.classList.add('author-info');
+        authorInfo.id = 'author-info-' + entry.guid; // Пример привязки id
+
+        let authorLabel = document.createElement('span');
+        authorLabel.textContent = 'Автор: ';
+        authorInfo.appendChild(authorLabel);
+
+        let author = document.createElement('span');
+        author.textContent = entry.author;
+        authorInfo.appendChild(author);
+
+        let link = document.createElement('a');
+        link.href = entry.link;
+        link.innerHTML = 'Читать далее';
+        link.target = '_blank'; // Открыть ссылку в новой вкладке
+
+        article.appendChild(title);
+
+        // Проверка и добавление изображения, если оно есть
+        if (entry.enclosure && entry.enclosure.link) {
+          let image = document.createElement('img');
+          image.src = entry.enclosure.link;
+          image.alt = entry.title;
+          article.appendChild(image);
+        }
+
+        article.appendChild(authorInfo);
+        container.appendChild(article);
+        article.appendChild(link);
+      });
+    })
+    .catch(error => console.error('Error loading RSS feed:', error));
+}
+

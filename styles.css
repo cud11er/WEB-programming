@@ -87,14 +87,13 @@ body {
   transition: max-height 0.3s ease-out;
   position: absolute;
   top: 100%;
-  left: 0;
-  width: 100%;
+  left: 10%;
+  width: 80%;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-
+  align-items: center;
 }
-
 
 .menu_item {
   border: solid;
@@ -117,18 +116,53 @@ body {
 .content {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   padding: 20px;
   text-align: center;
   flex-grow: 1;
   margin-top: 60px;
 }
-#content_news, 
-#content_products, 
+#content_news,
+#content_products,
 #content_contacts,
 #content_resourses,
 #content_about,
 #content_personal,
-#content_log_out {
+#content_log_in {
   display: none;
+}
+
+.rss-article {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.rss-article h3 {
+  margin: 0 0 10px;
+}
+.rss-article h2 {
+  align-items: end;
+}
+
+.author-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Выравнивание элементов по центру */
+  justify-content: center;
+}
+
+.author-info span {
+  margin-right: 5px; /* Пример отступа между элементами */
+}
+
+.rss-article a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.rss-article a:hover {
+  text-decoration: underline;
 }

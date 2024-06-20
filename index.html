@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Задание 5. JavaScript</title>
-  <meta name="description" content="" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="styles.css" />
-</head>
+  <head>
+    <meta charset="utf-8">
+    <title>Задание 5. JavaScript</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/rss-parser/dist/rss-parser.min.js" async></script>
+  </head>
 <body>
   <div class="wrapper">
     <div class="header">
@@ -57,7 +56,7 @@
       </div>
       <div id="Profile" class="menu">
         <div id="personal" class="menu_item">Личный кабинет</div>
-        <div id="log_out" class="menu_item">Выйти</div>
+        <div id="log_in" class="menu_item">Выйти</div>
       </div>
     </div>
 
@@ -67,8 +66,7 @@
     </div>
 
     <div id="content_news" class="content">
-      <p>Новости</p>
-      <p>Здесь отображается информация о новостях.</p>
+      <div id="rss-feed"></div>
     </div>
 
     <div id="content_contacts" class="content">
@@ -78,7 +76,6 @@
     <div id="content_products" class="content">
       <p>Здесь будут товары</p>
     </div>
-
 
     <div id="content_resourses" class="content">
       <p>Что-то написано</p>
@@ -92,8 +89,8 @@
       <p>Кабинетик</p>
     </div>
 
-    <div id="content_log_out" class="content">
-      <p>Выход</p>
+    <div id="content_log_in" class="content">
+      <p>Форма входа (например)</p>
     </div>
 
   </div>
