@@ -180,3 +180,22 @@ function loadRSSFeed() {
     .catch(error => console.error('Error loading RSS feed:', error));
 }
 
+// Получаем ссылку на пункт меню "Контакты"
+let contactsMenuItem = document.getElementById('contacts');
+
+// Добавляем обработчик клика на пункт меню "Контакты"
+contactsMenuItem.addEventListener('click', function() {
+  // Переключаем видимость контактной информации
+  contactInfo.style.display = contactInfo.style.display === 'block' ? 'none' : 'block';
+
+  // После переключения видимости контактной информации
+  // Проверяем, отображается ли контактная информация
+  if (contactInfo.style.display === 'block') {
+    // Если контактная информация отображается, переключаем видимость других блоков
+    for (let key in contentBlocks) {
+      if (key !== 'content_contacts') {
+        contentBlocks[key].style.display = 'none'; // Скрываем остальные блоки
+      }
+    }
+  }
+});
