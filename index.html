@@ -1,281 +1,102 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Задание 3</title>
-    <meta name="description" content="Недокопия сайта ВБ" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="wrapper">
-      <header class="header">
-        <div class="header_top">
-          <ul class="top_panel">
-            <li class="item_panel">Город</li>
-            <li class="item_panel">Продавайте на Wildberries</li>
-            <li class="item_panel">Работа в Wildberries</li>
-          </ul>
-        </div>
-        <div class="header_bottom">
-          <div class="logo_button">
-            <img
-              id="logo"
-              src="https://static-basket-01.wbbasket.ru/vol0/i/v3/header/logo.svg"
-              alt="Wildberries"
-            />
-            <button
-              class="burger"
-              data-wba-header-name="Catalog"
-              type="button"
-              aria-label="Навигация по сайту"
-            >
-              <img
-                src="https://img.icons8.com/?size=100&id=3096&format=png&color=FFFFFF"
-                alt="Меню"
-              />
-            </button>
-          </div>
-          <div class="search_bar">
-            <input type="text" placeholder="Найти на Wildberries..." />
-          </div>
-          <div class="nav_icons">
-            <img
-              src="https://img.icons8.com/?size=100&id=7880&format=png&color=FFFFFF"
-              alt="Иконка позиции"
-            />
-            <img
-              src="https://img.icons8.com/?size=100&id=20149&format=png&color=FFFFFF"
-              alt="Иконка пользователя"
-            />
-            <img
-              src="https://img.icons8.com/?size=100&id=43402&format=png&color=FFFFFF"
-              alt="Wildberries"
-            />
-          </div>
-        </div>
-      </header>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Задание 5. JavaScript</title>
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <div class="header">
+      <div id="headerMenu" class="header_menu">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-menu"
+        >
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </div>
+      <div id="home_title"><h2>Шапка</h2></div>
+      <div id="headerProfile" class="header_profile">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-user"
+        >
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
 
-      <div class="add_container">
-        <div class="add_1">
-          <img
-            src="https://static-basket-01.wbbasket.ru/vol1/crm-bnrs/bners1/wb_koshelek_2880_2.webp"
-            alt="Реклама 1"
-          />
-        </div>
-        <div class="add_2">
-          <img
-            src="https://static-basket-01.wbbasket.ru/vol1/crm-bnrs/bners1/skiduli_2880_1706.webp"
-            alt="Реклама 2"
-          />
-        </div>
+      <div id="Menu" class="menu">
+        <div id="news" class="menu_item">Новости</div>
+        <div id="contacts" class="menu_item">Контакты</div>
+        <div id="products" class="menu_item">Товары</div>
+        <div id="resourses" class="menu_item">Ресурсы</div>
+        <div id="about" class="menu_item">О нас</div>
       </div>
-      <div class="shop">
-        <div class="shop_item">
-          <img
-            src="	https://basket-04.wbbasket.ru/vol678/part67858/67858518/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">
-              Наушники беспроводные Air Pro для iPhone и Android блютуз
-            </h3>
-            <div class="price_container">
-              <p class="product_price">1 130 ₽</p>
-              <del class="old_price">9&nbsp;850&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.5
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-05.wbbasket.ru/vol906/part90680/90680302/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">Носки набор короткие 12 пар</h3>
-            <div class="price_container">
-              <p class="product_price">760 ₽</p>
-              <del class="old_price">1&nbsp;740&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.5
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-04.wbbasket.ru/vol591/part59102/59102656/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">
-              Креатин моногидрат порошок, спортивное питание 300г
-            </h3>
-            <div class="price_container">
-              <p class="product_price">760 ₽</p>
-              <del class="old_price">1&nbsp;740&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.5
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-05.wbbasket.ru/vol1004/part100464/100464950/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">
-              Держатель для телефона магнитный в машину автомобильный
-            </h3>
-            <div class="price_container">
-              <p class="product_price">332 ₽</p>
-              <del class="old_price">1&nbsp;030&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.8
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-14.wbbasket.ru/vol2107/part210774/210774644/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">
-              Набор махровые банные полотенца 6 шт 30х50 50х80 70х130 см
-            </h3>
-            <div class="price_container">
-              <p class="product_price">1 040 ₽</p>
-              <del class="old_price">3&nbsp;270&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.8
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-14.wbbasket.ru/vol2181/part218137/218137900/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">Шорты летние оверсайз хлопок</h3>
-            <div class="price_container">
-              <p class="product_price">1 398 ₽</p>
-              <del class="old_price">3&nbsp;790&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.7
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-01.wbbasket.ru/vol98/part9866/9866831/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">
-              Средство для обновления белых кроссовок
-            </h3>
-            <div class="price_container">
-              <p class="product_price">378 ₽</p>
-              <del class="old_price">462&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.8
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-10.wbbasket.ru/vol1495/part149564/149564395/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">
-              Одеяло 1.5 спальное 140х200 Всесезонное Лебяжий пух
-            </h3>
-            <div class="price_container">
-              <p class="product_price">576 ₽</p>
-              <del class="old_price">931&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.5
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-13.wbbasket.ru/vol1995/part199557/199557817/images/big/4.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">
-              Подушка ортопедическая для сна с эффектом памяти
-            </h3>
-            <div class="price_container">
-              <p class="product_price">1 909 ₽</p>
-              <del class="old_price">6&nbsp;736&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.8
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
-        <div class="shop_item">
-          <img
-            src="https://basket-14.wbbasket.ru/vol2138/part213885/213885757/images/big/1.webp"
-            alt="Product Image"
-          />
-          <div class="product_details">
-            <h3 class="product_name">Realme Note 50 4/128 Гб</h3>
-            <div class="price_container">
-              <p class="product_price">7 031 ₽</p>
-              <del class="old_price">8&nbsp;176&nbsp;₽</del>
-            </div>
-            <div class="product_rating">
-              <span class="star">&#9733;</span> 4.5
-            </div>
-            <button class="add_to_cart">Добавить</button>
-          </div>
-        </div>
+      <div id="Profile" class="menu">
+        <div id="personal" class="menu_item">Личный кабинет</div>
+        <div id="log_out" class="menu_item">Выйти</div>
       </div>
-      <footer class="footer">
-        <div class="footer_top">
-          <ul class="footer_panel">
-            <li class="footer_item">О нас</li>
-            <li class="footer_item">Контакты</li>
-            <li class="footer_item">Политика конфиденциальности</li>
-          </ul>
-        </div>
-        <div class="footer_bottom">
-          <div class="footer_logo">
-            <img
-              id="footer_logo"
-              src="https://static-basket-01.wbbasket.ru/vol0/i/v3/header/logo.svg"
-              alt="Wildberries"
-            />
-          </div>
-        </div>
-      </footer>
     </div>
-    <script src="" async defer></script>
-  </body>
+
+    <div id="content_main" class="content">
+      <!-- Здесь ваше содержимое -->
+      <p>Это содержимое, которое находится под меню.</p>
+    </div>
+
+    <div id="content_news" class="content">
+      <p>Новости</p>
+      <p>Здесь отображается информация о новостях.</p>
+    </div>
+
+    <div id="content_contacts" class="content">
+      <p>Контакты</p>
+    </div>
+
+    <div id="content_products" class="content">
+      <p>Здесь будут товары</p>
+    </div>
+
+
+    <div id="content_resourses" class="content">
+      <p>Что-то написано</p>
+    </div>
+
+    <div id="content_about" class="content">
+      <p>Информация</p>
+    </div>
+
+    <div id="content_personal" class="content">
+      <p>Кабинетик</p>
+    </div>
+
+    <div id="content_log_out" class="content">
+      <p>Выход</p>
+    </div>
+
+  </div>
+  <script src="app.js" async defer></script>
+</body>
 </html>
