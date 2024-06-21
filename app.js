@@ -1,201 +1,141 @@
-function getElId(id) {
-  return document.getElementById(id);
-}
+let loadButton = document.getElementById('load');
+let photoContainer = document.getElementById('photo');
+let infoContainer = document.querySelector('.info');
+let wrapper = document.querySelector('.wrapper');
+let profileContainer = document.getElementById('profile-container');
+let add_infoContainer = document.getElementById('add_info');
+let backButton = document.getElementById('back');
 
-let headerMenu = getElId('headerMenu');
-let menu = getElId('Menu');
-let headerProfile = getElId("headerProfile");
-let homeTitle = getElId('home_title');
-let profile = getElId('Profile');
-
-let newsItem = getElId('news');
-let contactsItem = getElId('contacts');
-let productsItem = getElId('products');
-let resourses = getElId('resourses');
-let about = getElId('about');
-let personal = getElId('personal');
-let log_in = getElId('log_in');
-
-let contentBlocks = {
-  'content_main': getElId('content_main'),
-  'content_contacts': getElId('content_contacts'),
-  'content_news': getElId('content_news'),
-  'content_products': getElId('content_products'),
-  'content_resourses': getElId('content_resourses'),
-  'content_about': getElId('content_about'),
-  'content_personal': getElId('content_personal'),
-  'content_log_in': getElId('content_log_in')
+let person = {
+    name: "Константин",
+    birthday: new Date(1998, 8, 3),
+    age: 25,
+    isMale: true,
+    workDate: [
+        {
+            name: "PetrGU",
+            startDate: new Date(2017, 8, 1),
+            endDate: new Date(2020, 11, 28),
+        },
+        {
+            name: "PGTH",
+            startDate: new Date(2022, 8, 1),
+            endDate: new Date(),
+        },
+    ],
+    img: "https://pic.rutubelist.ru/user/8b/92/8b92d2eb41680b7923600988fe2ae441.jpg",
+    mail: 'rikunov.kost@inbox.ru',
+    telegram: 'https://t.me/cudd1er',
+    vk: 'https://vk.com/cudd1er'
 };
 
-// Инициализация загрузки RSS ленты при первой загрузке страницы
-document.addEventListener('DOMContentLoaded', function() {
-  loadRSSFeed();
-});
+loadButton.addEventListener('click', function() {
+    photoContainer.src = person.img;
 
-// Функция для скрытия всех контентных блоков, кроме указанного по его id
-function showContent(idToShow, title) {
-  for (let key in contentBlocks) {
-    if (key === idToShow) {
-      contentBlocks[key].style.display = 'flex'; // Показываем нужный блок
-      menu.classList.remove('ShowMenu');
-      profile.classList.remove('ShowMenu')
-    } else {
-      contentBlocks[key].style.display = 'none'; // Скрываем остальные блоки
+    photoContainer.classList.remove('hidden');
+    photoContainer.classList.remove('hide');
+    photoContainer.classList.add('reveal');
+    infoContainer.classList.remove('hidden');
+    infoContainer.classList.remove('hide');
+    infoContainer.classList.add('reveal');
+    add_infoContainer.classList.remove('hidden');
+    add_infoContainer.classList.remove('hide');
+    add_infoContainer.classList.add('reveal');
+
+    // Очистить контейнеры перед добавлением новых элементов
+    infoContainer.innerHTML = '';
+    add_infoContainer.innerHTML = '';
+
+    // <h4> с именем person.name
+    let nameContainer = document.createElement('div');
+    nameContainer.className = 'name';
+    let nameElement = document.createElement('h4');
+    nameElement.textContent = `Имя: ${person.name}`;
+    nameContainer.appendChild(nameElement);
+    infoContainer.appendChild(nameContainer);
+
+    // <p> с возрастом person.age
+    let ageContainer = document.createElement('div');
+    ageContainer.className = 'age';
+    let ageElement = document.createElement('p');
+    ageElement.textContent = `Возраст: ${person.age}`;
+    ageContainer.appendChild(ageElement);
+    infoContainer.appendChild(ageContainer);
+
+    // <p> с полом person.isMale
+    let genderContainer = document.createElement('div');
+    genderContainer.className = 'gender';
+    let genderElement = document.createElement('p');
+    genderElement.textContent = `Пол: ${person.isMale ? 'Мужской' : 'Женский'}`;
+    genderContainer.appendChild(genderElement);
+    infoContainer.appendChild(genderContainer);
+
+    // Работа
+    let worksContainer = document.createElement('div');
+    worksContainer.id = 'works';
+    worksContainer.className = 'works';
+    for (const work of person.workDate) {
+        let workElement = document.createElement('div');
+        workElement.innerHTML = `
+            <div>Место работы: ${work.name}</div>
+            <div>Год начала: ${work.startDate.getFullYear()}</div>
+            <div>Год окончания: ${work.endDate.getFullYear()}</div>
+        `;
+        worksContainer.appendChild(workElement);
     }
-  }
-  homeTitle.innerHTML = `<h2>${title}</h2>`; // Устанавливаем заголовок
-  menu.classList.remove('ShowMenu'); // Скрыть меню после нажатия
+    infoContainer.appendChild(worksContainer);
 
-  // Сохранение состояния в history
-  history.pushState({ id: idToShow, title: title }, title, `#${idToShow}`);
-}
+    // Дополнительная информация
+    let mailContainer = document.createElement('div');
+    mailContainer.className = 'mail';
+    let mailElement = document.createElement('p');
+    mailElement.innerHTML = `Email: <a href="mailto:${person.mail}">${person.mail}</a>`;
+    mailContainer.appendChild(mailElement);
+    add_infoContainer.appendChild(mailContainer);
 
-// Восстановление состояния при загрузке страницы
-window.addEventListener('popstate', function(event) {
-  if (event.state) {
-    showContent(event.state.id, event.state.title);
-  } else {
-    showContent('content_main', 'Шапка');
-  }
+    let telegramContainer = document.createElement('div');
+    telegramContainer.className = 'telegram';
+    let telegramElement = document.createElement('p');
+    telegramElement.innerHTML = `Telegram: <a href="${person.telegram}" target="_blank">${person.telegram}</a>`;
+    telegramContainer.appendChild(telegramElement);
+    add_infoContainer.appendChild(telegramContainer);
+
+    let vkContainer = document.createElement('div');
+    vkContainer.className = 'vk';
+    let vkElement = document.createElement('p');
+    vkElement.innerHTML = `VK: <a href="${person.vk}" target="_blank">${person.vk}</a>`;
+    vkContainer.appendChild(vkElement);
+    add_infoContainer.appendChild(vkContainer);
+
+    // Скрыть кнопку "Загрузить"
+    loadButton.style.display = 'none';
+
+    // Показать кнопку "Вернуться"
+    backButton.classList.remove('hidden');
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  if (location.hash) {
-    let idToShow = location.hash.substring(1);
-    let title = document.querySelector(`a[href="#${idToShow}"]`).innerText;
-    showContent(idToShow, title);
-  } else {
-    showContent('content_main', 'Шапка');
-  }
-});
+backButton.addEventListener('click', function() {
+    // Анимация сворачивания
+    photoContainer.classList.add('hide');
+    infoContainer.classList.add('hide');
+    add_infoContainer.classList.add('hide');
 
-// Закрытие меню при клике вне области
-document.addEventListener('click', function(event) {
-  const target = event.target;
-  if (!target.closest('.header_menu') && !target.closest('#Menu') && menu.classList.contains('ShowMenu')) {
-    menu.classList.remove('ShowMenu');
-  }
-  if (!target.closest('.header_profile') && !target.closest('#Profile') && profile.classList.contains('ShowMenu')) {
-    profile.classList.remove('ShowMenu');
-  }
-});
+    // Удаление элементов после завершения анимации
+    setTimeout(() => {
+        photoContainer.classList.remove('reveal');
+        photoContainer.classList.add('hidden');
+        photoContainer.classList.remove('hide');
+        infoContainer.classList.remove('reveal');
+        infoContainer.classList.add('hidden');
+        infoContainer.classList.remove('hide');
+        add_infoContainer.classList.remove('reveal');
+        add_infoContainer.classList.add('hidden');
+        add_infoContainer.classList.remove('hide');
 
-//Раскрытие списков Меню и Профиля
-headerMenu.addEventListener('click', function() {
-  if (profile.classList.contains('ShowMenu')) {
-    profile.classList.remove('ShowMenu');
-  }
-  menu.classList.toggle('ShowMenu');
-});
+        // Показать кнопку "Загрузить" снова
+        loadButton.style.display = 'block';
 
-headerProfile.addEventListener("click", function() {
-  if (menu.classList.contains('ShowMenu')) {
-    menu.classList.remove('ShowMenu');
-  }
-  profile.classList.toggle('ShowMenu');
-});
-
-// Обработчики для разных разделов
-newsItem.addEventListener('click', function() {
-  showContent('content_news', 'Новости (RSS-лента)');
-  loadRSSFeed();
-});
-
-contactsItem.addEventListener('click', function() {
-  showContent('content_contacts', 'Контакты');
-});
-
-productsItem.addEventListener('click', function() {
-  showContent('content_products', 'Товары');
-});
-
-resourses.addEventListener('click', function() {
-  showContent('content_resourses', 'Ресурсы');
-});
-
-about.addEventListener('click', function() {
-  showContent('content_about', 'О нас');
-});
-
-personal.addEventListener('click', function() {
-  showContent('content_personal', 'Личный кабинет');
-});
-
-log_in.addEventListener('click', function(){
-  showContent('content_log_in', 'Вход');
-});
-
-// Функция для загрузки и отображения RSS ленты
-function loadRSSFeed() {
-  //let rssUrl = 'https://rss2json.com/api.json?rss_url=http://vse.karelia.ru/news/feed.xml';
-  let rssUrl = 'https://rss2json.com/api.json?rss_url=http://lenta.ru/l/r/EX/import.rss';
-
-  fetch(rssUrl)
-    .then(response => response.json())
-    .then(data => {
-      let container = document.getElementById('rss-feed');
-      container.innerHTML = ''; // Очистка предыдущего содержимого
-
-      data.items.forEach(function(entry) {
-        let article = document.createElement('div');
-        article.classList.add('rss-article');
-        console.log('entry', entry);
-
-        let title = document.createElement('h3');
-        title.innerHTML = entry.title;
-
-        // Создаем общий div для "Автор: " и имени автора с id
-        let authorInfo = document.createElement('div');
-        authorInfo.classList.add('author-info');
-        authorInfo.id = 'author-info-' + entry.guid; // Пример привязки id
-
-        let authorLabel = document.createElement('span');
-        authorLabel.textContent = 'Автор: ';
-        authorInfo.appendChild(authorLabel);
-
-        let author = document.createElement('span');
-        author.textContent = entry.author;
-        authorInfo.appendChild(author);
-
-        let link = document.createElement('a');
-        link.href = entry.link;
-        link.innerHTML = 'Читать далее';
-        link.target = '_blank'; // Открыть ссылку в новой вкладке
-
-        article.appendChild(title);
-
-        // Проверка и добавление изображения, если оно есть
-        if (entry.enclosure && entry.enclosure.link) {
-          let image = document.createElement('img');
-          image.src = entry.enclosure.link;
-          image.alt = entry.title;
-          article.appendChild(image);
-        }
-
-        article.appendChild(authorInfo);
-        container.appendChild(article);
-        article.appendChild(link);
-      });
-    })
-    .catch(error => console.error('Error loading RSS feed:', error));
-}
-
-// Получаем ссылку на пункт меню "Контакты"
-let contactsMenuItem = document.getElementById('contacts');
-
-// Добавляем обработчик клика на пункт меню "Контакты"
-contactsMenuItem.addEventListener('click', function() {
-  // Переключаем видимость контактной информации
-  contactInfo.style.display = contactInfo.style.display === 'block' ? 'none' : 'block';
-
-  // После переключения видимости контактной информации
-  // Проверяем, отображается ли контактная информация
-  if (contactInfo.style.display === 'block') {
-    // Если контактная информация отображается, переключаем видимость других блоков
-    for (let key in contentBlocks) {
-      if (key !== 'content_contacts') {
-        contentBlocks[key].style.display = 'none'; // Скрываем остальные блоки
-      }
-    }
-  }
+        // Скрыть кнопку "Вернуться"
+        backButton.classList.add('hidden');
+    }, 500); // Время должно совпадать с продолжительностью анимации
 });
