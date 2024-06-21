@@ -1,105 +1,86 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-    color: #333;
-    margin: 0;
-    padding: 0;
+  background: linear-gradient(
+    180deg,
+    #000000,
+    #1b0033 25%,
+    #09002b 50%,
+    #1a004f 75%,
+    #000000
+  );
+  color: white;
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* Скрыть содержимое, выходящее за пределы экрана */
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  text-align: center;
+  position: -ms-page; /* Использовать position: relative для позиционирования абсолютных элементов */
+  width: 100%;
+  height: 100%;
 }
 
-.profile-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+#fillSky {
+  background-color: #4a148c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
-.profile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin: 10px;
+#fillSky:hover {
+  background-color: #7b1fa2;
 }
 
-#load, #back {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    margin: 10px;
+#fillSky.disappear {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out; /* Ускоренная анимация исчезновения */
 }
 
-#load:hover, #back:hover {
-    background-color: #45a049;
+.planets,
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
-#photo {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 20px;
+.planets > div,
+.stars > div {
+  position: absolute;
+  animation: fadeIn 2s ease-in-out forwards;
 }
 
-.hidden {
-    display: none;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
-.info div {
-    margin-bottom: 10px;
+#finalMessage {
+  position: static;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+  opacity: 0;
+  transition: opacity 2s;
 }
 
-.works div {
-    margin: 5px 0;
-    padding: 5px;
-    border-bottom: 1px solid #ddd;
-}
-
-.hidden {
-    display: none;
-}
-
-@keyframes reveal {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes hide {
-    0% {
-        transform: scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: scale(0);
-        opacity: 0;
-    }
-}
-
-.reveal {
-    display: block !important;
-    animation: reveal 0.5s ease-out forwards;
-}
-
-.hide {
-    animation: hide 0.5s ease-out forwards;
+#finalMessage.show {
+  opacity: 1;
 }

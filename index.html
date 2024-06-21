@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Профиль пользователя</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Занятие 7. TypeScript</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="wrapper">
-        <div id="profile-container" class="profile-container">
-            <div id="profile" class="profile">
-                <button id="load">Загрузить профиль</button>
-                <img id="photo" src="" alt="Фото профиля" class="hidden">
-                <div class="info hidden"></div>
-            </div>
-            <div id="add_info" class="profile hidden"></div>
-        </div>
-        <button id="back" class="hidden">Вернуться</button>
+      <button id="fillSky">Заполните небо ^_^</button>
+      <div id="finalMessage" class="hidden">
+        Небо заполнено звездами и планетами! ^_^
+      </div>
     </div>
     <script src="app.js" async defer></script>
-</body>
+  </body>
 </html>
