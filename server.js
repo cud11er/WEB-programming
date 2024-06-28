@@ -1,35 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const mongoose = require('mongoose');
-
-mongoose.connect('mongodb://127.0.0.1:27017/weather', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
-mongoose.connection.on('connected', () => {
-  console.log('Connected to MongoDB');
-});
-
-mongoose.connection.on('error', (err) => {
-  console.error('Error connecting to MongoDB:', err);
-});
-
-const Weather = mongoose.model('Weather', {
-  city: String,
-  lat: Number,
-  lon: Number,
-  date: String,
-  temp: String,
-  feels_like: String,
-  wind_speed: Number,
-  wind_dir: String,
-  humidity: String,
-  sunrise: String,
-  sunset: String,
-  condition: String,
-});
-
 const app = express();
 const port = 3000;
 
@@ -40,7 +10,9 @@ app.get('/api/weather', async (req, res) => {
   const { lat, lon } = req.query;
 
   if (!lat || !lon) {
-    return res.status(400).json({ error: 'Latitude and longitude are required' });
+    return res
+      .status(400)
+      .json({ error: 'Latitude and longitude are required' });
   }
 
   const apiKey = process.env.YANDEX_API_KEY || '1ab343c2-4661-4ddf-b45e-00ba141ac433';
@@ -60,37 +32,23 @@ app.get('/api/weather', async (req, res) => {
 
     const weather = await response.json();
 
-    const weatherNew = new Weather({
-      city: weather.info.tzinfo.name,
-      lat: weather.info.lat,
-      lon: weather.info.lon,
-      date: weather.forecasts[0].date,
-      temp: weather.fact.temp + '°C',
-      feels_like: weather.fact.feels_like + '°C',
-      wind_speed: weather.fact.wind_speed,
-      wind_dir: weather.fact.wind_dir,
-      humidity: weather.fact.humidity + '%',
-      sunrise: weather.forecasts[0].sunrise,
-      sunset: weather.forecasts[0].sunset,
-      condition: weather.fact.condition,
+    res.json({
+        'Город': weather.info.tzinfo.name,
+        'Ширина': weather.info.lat,
+        'Долгота': weather.info.lon,
+        'Дата': weather.forecasts[0].date,
+        'Температура': weather.fact.temp + '°C',
+        'Чувствуется как': weather.fact.feels_like + '°C',
+        'Направление ветра': weather.fact.wind_dir,
+        'Влажность': weather.fact.humidity + '%',
+        'Восход': weather.forecasts[0].sunrise,
+        'Закат': weather.forecasts[0].sunset,
+        'Облачность': weather.fact.condition,
     });
 
-    await weatherNew.save();
-
-    res.json(weatherNew);
   } catch (error) {
     console.error('Error fetching weather:', error);
     res.status(500).json({ error: 'Failed to fetch weather data' });
-  }
-});
-
-app.get('/api/log', async (req, res) => {
-  try {
-    let log = await Weather.find();
-    res.json(log);
-  } catch (error) {
-    console.error('Error fetching log:', error);
-    res.status(500).json({ error: 'Failed to fetch log data' });
   }
 });
 

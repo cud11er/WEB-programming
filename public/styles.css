@@ -64,12 +64,3 @@ button:hover {
 .weather-result p {
     margin: 5px 0;
 }
-
-.log-result {
-    display: none;
-    margin-top: 20px;
-  }
-
-  #logResult {
-    color: #000;
-  }
