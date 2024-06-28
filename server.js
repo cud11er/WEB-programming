@@ -2,7 +2,19 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/weather');
+mongoose.connect('mongodb://127.0.0.1:27017/weather', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connection.on('connected', () => {
+  console.log('Connected to MongoDB');
+});
+
+mongoose.connection.on('error', (err) => {
+  console.error('Error connecting to MongoDB:', err);
+});
+
 const Weather = mongoose.model('Weather', {
   city: String,
   lat: Number,
@@ -28,9 +40,7 @@ app.get('/api/weather', async (req, res) => {
   const { lat, lon } = req.query;
 
   if (!lat || !lon) {
-    return res
-      .status(400)
-      .json({ error: 'Latitude and longitude are required' });
+    return res.status(400).json({ error: 'Latitude and longitude are required' });
   }
 
   const apiKey = process.env.YANDEX_API_KEY || '1ab343c2-4661-4ddf-b45e-00ba141ac433';
@@ -50,7 +60,6 @@ app.get('/api/weather', async (req, res) => {
 
     const weather = await response.json();
 
-
     const weatherNew = new Weather({
       city: weather.info.tzinfo.name,
       lat: weather.info.lat,
@@ -63,15 +72,13 @@ app.get('/api/weather', async (req, res) => {
       humidity: weather.fact.humidity + '%',
       sunrise: weather.forecasts[0].sunrise,
       sunset: weather.forecasts[0].sunset,
-      condition: weather.fact.condition })
+      condition: weather.fact.condition,
+    });
 
     await weatherNew.save();
 
     res.json(weatherNew);
-
-  } 
-  
-  catch (error) {
+  } catch (error) {
     console.error('Error fetching weather:', error);
     res.status(500).json({ error: 'Failed to fetch weather data' });
   }
