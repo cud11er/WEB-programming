@@ -1,5 +1,23 @@
 const express = require('express');
 const cors = require('cors');
+const mongoose = require('mongoose');
+
+mongoose.connect('mongodb://127.0.0.1:27017/weather');
+const Weather = mongoose.model('Weather', {
+  city: String,
+  lat: Number,
+  lon: Number,
+  date: String,
+  temp: String,
+  feels_like: String,
+  wind_speed: Number,
+  wind_dir: String,
+  humidity: String,
+  sunrise: String,
+  sunset: String,
+  condition: String,
+});
+
 const app = express();
 const port = 3000;
 
@@ -32,23 +50,40 @@ app.get('/api/weather', async (req, res) => {
 
     const weather = await response.json();
 
-    res.json({
-        'Город': weather.info.tzinfo.name,
-        'Ширина': weather.info.lat,
-        'Долгота': weather.info.lon,
-        'Дата': weather.forecasts[0].date,
-        'Температура': weather.fact.temp + '°C',
-        'Чувствуется как': weather.fact.feels_like + '°C',
-        'Направление ветра': weather.fact.wind_dir,
-        'Влажность': weather.fact.humidity + '%',
-        'Восход': weather.forecasts[0].sunrise,
-        'Закат': weather.forecasts[0].sunset,
-        'Облачность': weather.fact.condition,
-    });
 
-  } catch (error) {
+    const weatherNew = new Weather({
+      city: weather.info.tzinfo.name,
+      lat: weather.info.lat,
+      lon: weather.info.lon,
+      date: weather.forecasts[0].date,
+      temp: weather.fact.temp + '°C',
+      feels_like: weather.fact.feels_like + '°C',
+      wind_speed: weather.fact.wind_speed,
+      wind_dir: weather.fact.wind_dir,
+      humidity: weather.fact.humidity + '%',
+      sunrise: weather.forecasts[0].sunrise,
+      sunset: weather.forecasts[0].sunset,
+      condition: weather.fact.condition })
+
+    await weatherNew.save();
+
+    res.json(weatherNew);
+
+  } 
+  
+  catch (error) {
     console.error('Error fetching weather:', error);
     res.status(500).json({ error: 'Failed to fetch weather data' });
+  }
+});
+
+app.get('/api/log', async (req, res) => {
+  try {
+    let log = await Weather.find();
+    res.json(log);
+  } catch (error) {
+    console.error('Error fetching log:', error);
+    res.status(500).json({ error: 'Failed to fetch log data' });
   }
 });
 

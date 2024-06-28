@@ -47,15 +47,18 @@ function displayWeather(data) {
     }
 
     weatherResult.innerHTML = `
-        <p>Город: ${data.Город}</p>
-        <p>Дата: ${data.Дата}</p>
-        <p>Температура: ${data.Температура}</p>
-        <p>Чувствуется как: ${data['Чувствуется как']}</p>
-        <p>Направление ветра: ${data['Направление ветра']}</p>
-        <p>Влажность: ${data.Влажность}</p>
-        <p>Восход: ${data.Восход}</p>
-        <p>Закат: ${data.Закат}</p>
-        <p>Облачность: ${data.Облачность}</p>
+        <p>Город: ${data.city}</p>
+        <p>Ширина: ${data.lat}</p>
+        <p>Долгота: ${data.lon}</p>
+        <p>Дата: ${data.date}</p>
+        <p>Температура: ${data.temp}</p>
+        <p>Чувствуется как: ${data.feels_like}</p>
+        <p>Направление ветра: ${data.wind_dir}</p>
+        <p>Скорость ветра: ${data.wind_speed} м/с</p>
+        <p>Влажность: ${data.humidity}</p>
+        <p>Восход: ${data.sunrise}</p>
+        <p>Закат: ${data.sunset}</p>
+        <p>Облачность: ${data.condition}</p>
     `;
     weatherResult.classList.add('show');
     weatherResult.style.display = 'flex';
